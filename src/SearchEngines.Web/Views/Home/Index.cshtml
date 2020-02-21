@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Search Page";
+}
+
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search text..." id="search-text">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick="search();">Search</button>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function search(id) {
+            var inputValue = $('#search-text').val();
+            var request = JSON.stringify({searchText: inputValue });
+            $.ajax({
+                type: "POST",
+                url: '/Search',
+                contentType: "application/json; charset=utf-8",
+                data: request,
+                dataType: 'json'
+            }).done(function() {
+                console.log("succes");
+            });
+        }
+    </script>
+}
