@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SearchEngines.Db.Context;
 using SearchEngines.Db.Entities;
@@ -31,14 +32,23 @@ namespace SearchEngines.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index(string searchText)
+        public async Task<IActionResult> Index(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
                 return View();
             }
 
+            _context.SearchRequests.Add(new SearchRequest() {SearchText = searchText});
+            _context.SaveChanges();
+
             var res = _searchManager.Search(searchText);
+            if (res.Value != null)
+            {
+                _context.SearchResponses.Add(res.Value);
+                _context.SaveChanges();
+            }
+
             var resultDto = _mapper.Map<SearchResponseDto>(res.Value);
 
             if (!res.IsOk)
@@ -49,9 +59,23 @@ namespace SearchEngines.Web.Controllers
             return View("Index", resultDto);
         }
 
-        public IActionResult Privacy()
+        public IActionResult OfflineSearch(string searchText, int? take = 10)
         {
-            return View();
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return View();
+            }
+
+            // var results =
+            //     _context.SearchResults.Where(x => EF.Functions.Like(x.HeaderLinkText.ToUpper(), searchText.ToUpper()))
+            //         .Take(take ?? 10);
+
+            var resultsFromDb =
+                _context.SearchResults.Where(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()))
+                    .Take(take ?? 10);
+
+            var results = _mapper.Map<ICollection<SearchResultDto>>(resultsFromDb);
+            return View(results);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

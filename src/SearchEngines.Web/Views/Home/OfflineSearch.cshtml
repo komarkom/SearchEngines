@@ -1,0 +1,37 @@
+﻿@model ICollection<SearchEngines.Web.DTO.SearchResultDto>
+@{
+    ViewData["Title"] = "Offline Search";
+}
+
+<form method="Get" action="OfflineSearch">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search text..." id="search-text" name="searchText">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+
+<div class="container">
+    @if (Model != null)
+    {
+        foreach (var result in Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <a target="_blank" href="@result.Url">@result.HeaderLinkText</a>
+                    </div>
+                    <div>
+                        @result.PreviewData
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @if(Model == null || Model.Count == 0)
+    {
+        <div class="alert alert-warning">There are no results</div>
+    }
+</div>
