@@ -16,16 +16,19 @@ namespace SearchEngines.Db.Entities
         /// <summary>
         /// Result header text
         /// </summary>
+        [MaxLength(1000)]
         public string HeaderLinkText { get; set; }
 
         /// <summary>
         /// Result Url
         /// </summary>
+        [MaxLength(2000)]
         public string Url { get; set; }
 
         /// <summary>
         /// Result preview
         /// </summary>
+        [MaxLength(2000)]
         public string PreviewData { get; set; }
 
         public DateTime CreatedOn { get; set; }

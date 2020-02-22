@@ -1,4 +1,4 @@
-﻿@model SearchResponseModel
+﻿@model SearchEngines.Web.DTO.SearchResponseDto
 @{
     ViewData["Title"] = "Search Page";
 }
@@ -20,18 +20,21 @@
         <div class="alert alert-warning">@Model.Error</div>
     }
 
-    @foreach (var result in Model.SearchResults)
+    @if (Model.SearchResults != null)
     {
-        <div class="card">
-            <div class="card-body">
-                <div>
-                    <a target="_blank" href="@result.Url">@result.HeaderLinkText</a>
-                </div>
-                <div>
-                    @result.PreviewData
+        foreach (var result in Model.SearchResults)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <a target="_blank" href="@result.Url">@result.HeaderLinkText</a>
+                    </div>
+                    <div>
+                        @result.PreviewData
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
 </div>
 }

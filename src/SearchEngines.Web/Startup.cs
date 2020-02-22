@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using SearchEngines.Db.Context;
-using SearchEngines.Web.Base;
-using SearchEngines.Web.SearchEngines;
 using SearchEngines.Web.Util;
 
 namespace SearchEngines.Web
@@ -25,10 +22,10 @@ namespace SearchEngines.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<SearchEnginesDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddSearchEngineServices(Configuration);
             services.AddScoped<ISearchManager, SearchManager>();

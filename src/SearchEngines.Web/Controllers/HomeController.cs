@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SearchEngines.Db.Context;
 using SearchEngines.Db.Entities;
 using SearchEngines.Web.Base;
+using SearchEngines.Web.DTO;
 using SearchEngines.Web.Models;
 using SearchEngines.Web.Util;
 
@@ -19,13 +21,14 @@ namespace SearchEngines.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SearchEnginesDbContext _context;
         private readonly ISearchManager _searchManager;
+        private readonly IMapper _mapper;
 
-
-        public HomeController(ILogger<HomeController> logger, SearchEnginesDbContext context, ISearchManager searchManager)
+        public HomeController(ILogger<HomeController> logger, SearchEnginesDbContext context, ISearchManager searchManager, IMapper mapper)
         {
             _logger = logger;
             _context = context;
             _searchManager = searchManager;
+            _mapper = mapper;
         }
 
         public IActionResult Index(string searchText)
@@ -36,31 +39,14 @@ namespace SearchEngines.Web.Controllers
             }
 
             var res = _searchManager.Search(searchText);
+            var resultDto = _mapper.Map<SearchResponseDto>(res.Value);
+
             if (!res.IsOk)
             {
                 _logger.LogInformation(res.ErrorMessage);
-
-                var errorResponse = new SearchResponseModel()
-                {
-                    HasError = true,
-                    Error = res.ErrorMessage
-                };
-
-                return View("Index", errorResponse);
             }
 
-            var responseModel = new SearchResponseModel()
-            {
-                Data = res.Value.Data,
-                SearchResults = res.Value.SearchResults?.Select(x => new SearchResultModel()
-                {
-                    HeaderLinkText = x.HeaderLinkText,
-                    PreviewData = x.PreviewData,
-                    Url = x.Url
-                }).ToList()
-            };
-
-            return View("Index", responseModel);
+            return View("Index", resultDto);
         }
 
         public IActionResult Privacy()

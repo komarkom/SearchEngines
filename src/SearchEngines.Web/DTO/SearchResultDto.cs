@@ -1,6 +1,6 @@
-﻿namespace SearchEngines.Web.Models
+﻿namespace SearchEngines.Web.DTO
 {
-    public class SearchResultModel
+    public class SearchResultDto
     {
         public string HeaderLinkText { get; set; }
 

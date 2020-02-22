@@ -30,15 +30,32 @@ namespace SearchEngines.Web.SearchEngines
                 _yandexSearchOption.Key,
                 searchText);
 
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response;
+            try
+            {
+                response = SendRequest(url);
+            }
+            catch (Exception e)
+            {
+                return new SearchResponse(){ HasError = true, Error = e.ToString()};
+            }
 
             var result = ParseSearchResponse(response);
 
-            cts.Cancel();
+            if (result?.HasError == false)
+            {
+                cts.Cancel();
+            }
 
             return result;
+        }
+
+        private HttpWebResponse SendRequest(string url)
+        {
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+
+            return response;
         }
 
         private SearchResponse ParseSearchResponse(HttpWebResponse response)

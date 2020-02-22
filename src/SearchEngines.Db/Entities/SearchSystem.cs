@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SearchEngines.Db.Entities.Base;
 
 namespace SearchEngines.Db.Entities
@@ -14,6 +15,7 @@ namespace SearchEngines.Db.Entities
         /// <summary>
         /// Name of search system
         /// </summary>
+        [MaxLength(150)]
         public string SystemName { get; set; }
 
         public DateTime CreatedOn { get; set; }

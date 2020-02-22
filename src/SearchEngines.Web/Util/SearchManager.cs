@@ -46,31 +46,6 @@ namespace SearchEngines.Web.Util
 
                     return result;
                 }
-
-                // var completedTask = tasks.FirstOrDefault(x => x.IsCompletedSuccessfully);
-                var completedTask = tasks.FirstOrDefault(x => x.Result != null);
-
-                if (completedTask == null)
-                {
-                    result.IsOk = false;
-                    result.ErrorMessage = "Has no any completed tasks";
-                 
-                    return result;
-                }
-
-                var res = completedTask.Result;
-
-                if (res.HasError)
-                {
-                    result.IsOk = false;
-                    result.ErrorMessage = res.Error;
-                    return result;
-                }
-
-                result.IsOk = true;
-                result.Value = res;
-                return result;
-
             }
             catch (Exception e)
             {
@@ -79,7 +54,27 @@ namespace SearchEngines.Web.Util
                 return result;
             }
 
-            result.IsOk = false;
+            var completedTask = tasks.FirstOrDefault(x => x.Result != null);
+
+            if (completedTask == null)
+            {
+                result.IsOk = false;
+                result.ErrorMessage = "Has no any completed tasks";
+
+                return result;
+            }
+
+            var res = completedTask.Result;
+
+            if (res.HasError)
+            {
+                result.IsOk = false;
+                result.Value = res;
+                return result;
+            }
+
+            result.IsOk = true;
+            result.Value = res;
             return result;
         }
     }
