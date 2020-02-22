@@ -39,13 +39,20 @@ namespace SearchEngines.Web.Controllers
             if (!res.IsOk)
             {
                 _logger.LogInformation(res.ErrorMessage);
-                return View("Index");
+
+                var errorResponse = new SearchResponseModel()
+                {
+                    HasError = true,
+                    Error = res.ErrorMessage
+                };
+
+                return View("Index", errorResponse);
             }
 
             var responseModel = new SearchResponseModel()
             {
                 Data = res.Value.Data,
-                SearchResults = res.Value.SearchResults.Select(x => new SearchResultModel()
+                SearchResults = res.Value.SearchResults?.Select(x => new SearchResultModel()
                 {
                     HeaderLinkText = x.HeaderLinkText,
                     PreviewData = x.PreviewData,

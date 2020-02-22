@@ -47,7 +47,8 @@ namespace SearchEngines.Web.Util
                     return result;
                 }
 
-                var completedTask = tasks.FirstOrDefault(x => x.IsCompletedSuccessfully);
+                // var completedTask = tasks.FirstOrDefault(x => x.IsCompletedSuccessfully);
+                var completedTask = tasks.FirstOrDefault(x => x.Result != null);
 
                 if (completedTask == null)
                 {
@@ -58,6 +59,13 @@ namespace SearchEngines.Web.Util
                 }
 
                 var res = completedTask.Result;
+
+                if (res.HasError)
+                {
+                    result.IsOk = false;
+                    result.ErrorMessage = res.Error;
+                    return result;
+                }
 
                 result.IsOk = true;
                 result.Value = res;

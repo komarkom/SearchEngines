@@ -13,10 +13,25 @@ namespace SearchEngines.Db.Entities
     ///<inheritdoc cref="OriginalKeyedRecord"/>
     public class SearchResponse : OriginalKeyedRecord, ICreated, IDeleted
     {
+        public SearchResponse()
+        {
+            SearchResults = new HashSet<SearchResult>();
+        }
+
         /// <summary>
         /// Information result
         /// </summary>
         public string Data { get; set; }
+
+        /// <summary>
+        /// Error message
+        /// </summary>
+        public string Error { get; set; }
+
+        /// <summary>
+        /// Response return with error message
+        /// </summary>
+        public bool HasError { get; set; }
 
         /// <summary>
         /// Link to search request

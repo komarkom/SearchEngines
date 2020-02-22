@@ -14,38 +14,24 @@
 
 @if (Model != null)
 {
-    <div class="container">
-        <div>
-            @Model.Data
+<div class="container">
+    @if (Model.HasError)
+    {
+        <div class="alert alert-warning">@Model.Error</div>
+    }
+
+    @foreach (var result in Model.SearchResults)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <a target="_blank" href="@result.Url">@result.HeaderLinkText</a>
+                </div>
+                <div>
+                    @result.PreviewData
+                </div>
+            </div>
         </div>
-
-        @foreach (var result in Model.SearchResults)
-        {
-            <div>
-                <a target="_blank" href="@result.Url">@result.HeaderLinkText</a>
-            </div>
-            <div>
-                @result.PreviewData
-            </div>
-        }
-    </div>
-}
-
-@section scripts {
-    <script>
-        function search(id) {
-            var inputValue = $('#search-text').val();
-
-            var request = JSON.stringify({ searchText: inputValue });
-            $.ajax({
-                type: "POST",
-                url: '/Search',
-                contentType: "application/json; charset=utf-8",
-                data: request,
-                dataType: 'json'
-            }).done(function () {
-                console.log("succes");
-            });
-        }
-    </script>
+    }
+</div>
 }
