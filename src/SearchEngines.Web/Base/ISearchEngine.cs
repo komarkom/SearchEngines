@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using SearchEngines.Db.Entities;
 
 namespace SearchEngines.Web.Base
 {
     public interface ISearchEngine
     {
-        public SearchResponse Search(string searchText);
+        public SearchResponse Search(string searchText, CancellationTokenSource cts);
     }
 }

@@ -23,6 +23,11 @@ namespace SearchEngines.Db.Entities
         /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// Result preview
+        /// </summary>
+        public string PreviewData { get; set; }
+
         public DateTime CreatedOn { get; set; }
         public bool IsDeleted { get; set; }
 

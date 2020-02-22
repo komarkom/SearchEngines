@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,19 +18,42 @@ namespace SearchEngines.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SearchEnginesDbContext _context;
-        private readonly SearchEngineServices _searchEngineServices;
+        private readonly ISearchManager _searchManager;
 
 
-        public HomeController(ILogger<HomeController> logger, SearchEnginesDbContext context,  SearchEngineServices searchEngineServices)
+        public HomeController(ILogger<HomeController> logger, SearchEnginesDbContext context, ISearchManager searchManager)
         {
             _logger = logger;
             _context = context;
-            _searchEngineServices = searchEngineServices;
+            _searchManager = searchManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchText)
         {
-            return View();
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                return View();
+            }
+
+            var res = _searchManager.Search(searchText);
+            if (!res.IsOk)
+            {
+                _logger.LogInformation(res.ErrorMessage);
+                return View("Index");
+            }
+
+            var responseModel = new SearchResponseModel()
+            {
+                Data = res.Value.Data,
+                SearchResults = res.Value.SearchResults.Select(x => new SearchResultModel()
+                {
+                    HeaderLinkText = x.HeaderLinkText,
+                    PreviewData = x.PreviewData,
+                    Url = x.Url
+                }).ToList()
+            };
+
+            return View("Index", responseModel);
         }
 
         public IActionResult Privacy()
@@ -41,29 +65,6 @@ namespace SearchEngines.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-        
-        [HttpPost("Search")]
-        public async Task<ActionResult> Search([FromBody] SearchRequestModel request)
-        {
-            if (request == null || string.IsNullOrWhiteSpace(request.SearchText))
-            {
-                return BadRequest("Value cannot be empty");
-            }
-
-            var tasks = new List<Task>();
-            foreach (var searchEngine in _searchEngineServices.SearchEngines)
-            {
-                tasks.Add(new Task<SearchResponse>(() => searchEngine.Search(request.SearchText)));
-            }
-
-            foreach (var task in tasks)
-            {
-                task.Start();
-            }
-
-            var res = Task.WaitAny(tasks.ToArray());
-            return new JsonResult(request.SearchText);
         }
     }
 }

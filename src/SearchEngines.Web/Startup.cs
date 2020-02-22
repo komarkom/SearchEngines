@@ -27,6 +27,7 @@ namespace SearchEngines.Web
                 options.UseSqlServer(connection));
 
             services.AddSearchEngineServices();
+            services.AddScoped<ISearchManager, SearchManager>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
