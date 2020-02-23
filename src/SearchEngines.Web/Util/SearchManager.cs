@@ -58,7 +58,7 @@ namespace SearchEngines.Web.Util
                 return result;
             }
 
-            var completedTask = tasks.FirstOrDefault(x => x.Result != null);
+            var completedTask = tasks.FirstOrDefault(x => x.IsCompletedSuccessfully);
 
             if (completedTask == null)
             {

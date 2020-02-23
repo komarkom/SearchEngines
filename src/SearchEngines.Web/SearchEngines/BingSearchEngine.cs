@@ -11,13 +11,13 @@ using SearchEngines.Web.SearchEngines.Base;
 
 namespace SearchEngines.Web.SearchEngines
 {
-    public class GoogleSearchEngine : ISearchEngine
+    public class BingSearchEngine : ISearchEngine
     {
-        private readonly GoogleSearchOption _googleSearchOption;
+        private readonly BingSearchOption _bingSearchOption;
 
-        public GoogleSearchEngine(GoogleSearchOption googleSearchOption)
+        public BingSearchEngine(BingSearchOption bingSearchOption)
         {
-            _googleSearchOption = googleSearchOption;
+            _bingSearchOption = bingSearchOption;
         }
 
         public SearchResponse Search(string searchText, CancellationTokenSource cts)
@@ -26,9 +26,7 @@ namespace SearchEngines.Web.SearchEngines
             try
             {
                 var url = string.Format(
-                    _googleSearchOption.BaseUrl,
-                    _googleSearchOption.Cx,
-                    _googleSearchOption.Key,
+                    _bingSearchOption.BaseUrl,
                     searchText);
 
                 response = SendRequest(url);
@@ -45,7 +43,7 @@ namespace SearchEngines.Web.SearchEngines
                 cts?.Cancel();
             }
 
-            result.SearchSystemId = SearchSystem.DefaultRecord.FirstOrDefault(x => x.SystemName.Equals("google"))?.Id;
+            result.SearchSystemId = SearchSystem.DefaultRecord.FirstOrDefault(x => x.SystemName.Equals("bing"))?.Id;
             return result;
         }
 
@@ -56,7 +54,9 @@ namespace SearchEngines.Web.SearchEngines
         /// <returns>Web response</returns>
         private HttpWebResponse SendRequest(string url)
         {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Headers["Ocp-Apim-Subscription-Key"] = _bingSearchOption.Key;
+
             HttpWebResponse response = (HttpWebResponse) request.GetResponse();
 
             return response;
@@ -70,39 +70,31 @@ namespace SearchEngines.Web.SearchEngines
         private SearchResponse ParseSearchResponse(HttpWebResponse response)
         {
             var result = new SearchResponse();
-            GoogleResponse googleResponse;
+            BingResponse bingResponse;
             string responseBody;
 
             using (var reader = new StreamReader(response.GetResponseStream()))
             {
                 responseBody = reader.ReadToEnd();
             }
-            
-            googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(responseBody);
 
-            if (googleResponse == null)
-            {
-                var googleErrorResponse = JsonConvert.DeserializeObject<GoogleErrorResponse>(responseBody);
-                result.HasError = true;
-                result.Error = googleErrorResponse?.Error?.Message ?? "Internal error";
-                return result;
-            }
+            bingResponse = JsonConvert.DeserializeObject<BingResponse>(responseBody);
 
             result.Data = responseBody;
-            if (googleResponse.Items == null)
+            if (bingResponse?.WebPages?.Value == null)
             {
                 result.HasError = true;
                 result.Error = "Not found anything";
                 return result;
             }
 
-            foreach (var item in googleResponse.Items)
+            foreach (var item in bingResponse.WebPages.Value)
             {
                 result.SearchResults.Add(new SearchResult()
                 {
                     PreviewData = item.Snippet,
-                    HeaderLinkText = item.Title,
-                    Url = item.Link
+                    HeaderLinkText = item.Name,
+                    Url = item.Url
                 });
             }
 
@@ -110,35 +102,20 @@ namespace SearchEngines.Web.SearchEngines
         }
     }
 
-    public class GoogleResponse
+    public class BingResponse
     {
-        public SearchInformation SearchInformation { get; set; }
-        public List<Item> Items { get; set; }
+        public WebPages WebPages { get; set; }
     }
 
-    public class Item
+    public class Value
     {
-        public string Title { get; set; }
-        public string Link { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
         public string Snippet { get; set; }
     }
 
-    public class Error
+    public class WebPages
     {
-        public int Code { get; set; }
-        public string Message { get; set; }
-        public string Status { get; set; }
+        public List<Value> Value { get; set; }
     }
-
-    public class GoogleErrorResponse
-    {
-        public Error Error { get; set; }
-    }
-
-    public class SearchInformation
-    {
-        public double SearchTime { get; set; }
-        public string TotalResults { get; set; }
-    }
-
 }

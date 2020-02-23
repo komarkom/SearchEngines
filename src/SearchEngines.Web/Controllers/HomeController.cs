@@ -40,19 +40,23 @@ namespace SearchEngines.Web.Controllers
             _context.SaveChanges();
 
             var res = _searchManager.Search(searchText);
-            if (res.Value != null)
-            {
-                res.Value.SearchRequestId = request.Id;
-                _context.SearchResponses.Add(res.Value);
-                _context.SaveChanges();
-            }
-
-            var resultDto = _mapper.Map<SearchResponseDto>(res.Value);
-
-            if (!res.IsOk)
+            if (!res.IsOk || res.Value == null)
             {
                 _logger.LogInformation(res.ErrorMessage);
+                return View("Index", new SearchResponseDto()
+                {
+                    HasError = true,
+                    Error = res.ErrorMessage
+                });
             }
+
+            res.Value.SearchRequestId = request.Id;
+            _context.SearchResponses.Add(res.Value);
+            _context.SaveChanges();
+
+            var resultDto = _mapper.Map<SearchResponseDto>(res.Value);
+            var searchSystem = _context.SearchSystems.Find(res.Value?.SearchSystemId);
+            resultDto.SearchSystem = searchSystem?.SystemName ?? resultDto.SearchSystem;
 
             return View("Index", resultDto);
         }

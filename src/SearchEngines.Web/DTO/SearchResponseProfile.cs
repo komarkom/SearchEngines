@@ -12,6 +12,7 @@ namespace SearchEngines.Web.DTO
                 .ForMember(d => d.HasError, opt => opt.MapFrom(src =>src.HasError))
                 .ForMember(d => d.Error, opt => opt.MapFrom(src =>src.Error))
                 .ForMember(d => d.SearchResults, opt => opt.MapFrom(src =>src.SearchResults))
+                .ForMember(d => d.SearchSystem, opt => opt.MapFrom(src =>src.SearchSystem != null ? src.SearchSystem.SystemName : src.SearchSystemId!= null ? src.SearchSystemId.ToString() : "unknown system"))
                 .ForAllOtherMembers(opt => opt.Ignore())
                 ;
         }

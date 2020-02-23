@@ -12,14 +12,23 @@ namespace SearchEngines.Web.Util
         {
             var yandexSearchOption = configuration
                 .GetSection("YandexSearchOption")
-                .Get<YandexSearchOption>();
+                .Get<YandexSearchOption>();            
+            
+            var googleSearchOption = configuration
+                .GetSection("GoogleSearchOption")
+                .Get<GoogleSearchOption>();            
+            
+            var bingSearchOption = configuration
+                .GetSection("BingSearchOption")
+                .Get<BingSearchOption>();
 
             services.AddSingleton(new SearchEngineServices()
             {
                 SearchEngines = new List<ISearchEngine>()
                 {
-                    // new GoogleSearchEngine(),
-                    new YandexSearchEngine(yandexSearchOption)
+                    new GoogleSearchEngine(googleSearchOption),
+                    new YandexSearchEngine(yandexSearchOption),
+                    new BingSearchEngine(bingSearchOption)
                 }
             });
         }
