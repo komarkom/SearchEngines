@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using SearchEngines.Db.Entities;
-using SearchEngines.Web.Base;
+using SearchEngines.Web.SearchEngines.Base;
 
 namespace SearchEngines.Web.SearchEngines
 {

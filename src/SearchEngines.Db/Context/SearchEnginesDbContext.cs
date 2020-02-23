@@ -32,6 +32,8 @@ namespace SearchEngines.Db.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SearchSystem>().HasData(SearchSystem.DefaultRecord);
         }
 
         public override int SaveChanges()

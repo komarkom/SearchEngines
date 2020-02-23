@@ -10,7 +10,7 @@ using SearchEngines.Db.Context;
 namespace SearchEngines.Db.Migrations
 {
     [DbContext(typeof(SearchEnginesDbContext))]
-    [Migration("20200222161402_Initial")]
+    [Migration("20200223082028_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,7 +72,9 @@ namespace SearchEngines.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SearchRequestId");
+                    b.HasIndex("SearchRequestId")
+                        .IsUnique()
+                        .HasFilter("[SearchRequestId] IS NOT NULL");
 
                     b.HasIndex("SearchSystemId");
 
@@ -100,9 +102,6 @@ namespace SearchEngines.Db.Migrations
                         .HasColumnType("nvarchar(2000)")
                         .HasMaxLength(2000);
 
-                    b.Property<long?>("SearchRequestId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("SearchResponseId")
                         .HasColumnType("bigint");
 
@@ -111,8 +110,6 @@ namespace SearchEngines.Db.Migrations
                         .HasMaxLength(2000);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SearchRequestId");
 
                     b.HasIndex("SearchResponseId");
 
@@ -126,9 +123,6 @@ namespace SearchEngines.Db.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -139,13 +133,33 @@ namespace SearchEngines.Db.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SearchSystems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            IsDeleted = false,
+                            SystemName = "yandex"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            IsDeleted = false,
+                            SystemName = "google"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            IsDeleted = false,
+                            SystemName = "bing"
+                        });
                 });
 
             modelBuilder.Entity("SearchEngines.Db.Entities.SearchResponse", b =>
                 {
                     b.HasOne("SearchEngines.Db.Entities.SearchRequest", "SearchRequest")
-                        .WithMany()
-                        .HasForeignKey("SearchRequestId");
+                        .WithOne("SearchResponse")
+                        .HasForeignKey("SearchEngines.Db.Entities.SearchResponse", "SearchRequestId");
 
                     b.HasOne("SearchEngines.Db.Entities.SearchSystem", "SearchSystem")
                         .WithMany()
@@ -154,10 +168,6 @@ namespace SearchEngines.Db.Migrations
 
             modelBuilder.Entity("SearchEngines.Db.Entities.SearchResult", b =>
                 {
-                    b.HasOne("SearchEngines.Db.Entities.SearchRequest", null)
-                        .WithMany("SearchResults")
-                        .HasForeignKey("SearchRequestId");
-
                     b.HasOne("SearchEngines.Db.Entities.SearchResponse", "SearchResponse")
                         .WithMany("SearchResults")
                         .HasForeignKey("SearchResponseId");

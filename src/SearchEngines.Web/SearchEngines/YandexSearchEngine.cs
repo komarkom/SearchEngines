@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using Microsoft.CodeAnalysis.Options;
-using Microsoft.Extensions.Options;
 using SearchEngines.Db.Entities;
-using SearchEngines.Web.Base;
+using SearchEngines.Web.SearchEngines.Base;
 
 namespace SearchEngines.Web.SearchEngines
 {
-    public class YandexSearchEngine: ISearchEngine
+    /// <summary>
+    /// Implementation yandex search engine
+    /// </summary>
+    ///<inheritdoc cref="ISearchEngine"/>
+    public class YandexSearchEngine : ISearchEngine
     {
         private readonly YandexSearchOption _yandexSearchOption;
+
+        /// <summary>
+        /// New instance of YandexSearchEngine
+        /// </summary>
+        /// <param name="yandexSearchOption">Setting</param>
         public YandexSearchEngine(YandexSearchOption yandexSearchOption)
         {
             _yandexSearchOption = yandexSearchOption;
         }
 
-        public  SearchResponse Search(string searchText, CancellationTokenSource cts)
+        public SearchResponse Search(string searchText, CancellationTokenSource cts)
         {
             var url = string.Format(
                 _yandexSearchOption.BaseUrl,
@@ -37,19 +41,25 @@ namespace SearchEngines.Web.SearchEngines
             }
             catch (Exception e)
             {
-                return new SearchResponse(){ HasError = true, Error = e.ToString()};
+                return new SearchResponse() {HasError = true, Error = e.ToString()};
             }
 
             var result = ParseSearchResponse(response);
 
-            if (result?.HasError == false)
+            if (result.HasError == false)
             {
                 cts.Cancel();
             }
 
+            result.SearchSystemId = SearchSystem.DefaultRecord.FirstOrDefault(x => x.SystemName.Equals("yandex"))?.Id;
             return result;
         }
 
+        /// <summary>
+        /// Send search request
+        /// </summary>
+        /// <param name="url">Formatted searching url</param>
+        /// <returns>Web response</returns>
         private HttpWebResponse SendRequest(string url)
         {
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
@@ -58,6 +68,11 @@ namespace SearchEngines.Web.SearchEngines
             return response;
         }
 
+        /// <summary>
+        /// Parsing web response with xml format
+        /// </summary>
+        /// <param name="response">Web response to parsing</param>
+        /// <returns>Search response</returns>
         private SearchResponse ParseSearchResponse(HttpWebResponse response)
         {
             var result = new SearchResponse();
@@ -99,6 +114,12 @@ namespace SearchEngines.Web.SearchEngines
             return result;
         }
 
+        /// <summary>
+        /// Get value from xElement
+        /// </summary>
+        /// <param name="group">Group</param>
+        /// <param name="name">Element name</param>
+        /// <returns>Value</returns>
         private string GetValue(XElement group, string name)
         {
             try

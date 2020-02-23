@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SearchEngines.Db.Context;
 using SearchEngines.Db.Entities;
-using SearchEngines.Web.Base;
 using SearchEngines.Web.DTO;
 using SearchEngines.Web.Models;
 using SearchEngines.Web.Util;
@@ -39,12 +35,14 @@ namespace SearchEngines.Web.Controllers
                 return View();
             }
 
-            _context.SearchRequests.Add(new SearchRequest() {SearchText = searchText});
+            var request = new SearchRequest() {SearchText = searchText};
+            _context.SearchRequests.Add(request);
             _context.SaveChanges();
 
             var res = _searchManager.Search(searchText);
             if (res.Value != null)
             {
+                res.Value.SearchRequestId = request.Id;
                 _context.SearchResponses.Add(res.Value);
                 _context.SaveChanges();
             }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SearchEngines.Web.Base;
 using SearchEngines.Web.SearchEngines;
+using SearchEngines.Web.SearchEngines.Base;
 
 namespace SearchEngines.Web.Util
 {

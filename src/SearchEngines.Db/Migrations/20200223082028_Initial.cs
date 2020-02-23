@@ -29,7 +29,6 @@ namespace SearchEngines.Db.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SystemName = table.Column<string>(maxLength: 150, nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -79,18 +78,11 @@ namespace SearchEngines.Db.Migrations
                     PreviewData = table.Column<string>(maxLength: 2000, nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    SearchResponseId = table.Column<long>(nullable: true),
-                    SearchRequestId = table.Column<long>(nullable: true)
+                    SearchResponseId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SearchResults", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SearchResults_SearchRequests_SearchRequestId",
-                        column: x => x.SearchRequestId,
-                        principalTable: "SearchRequests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SearchResults_SearchResponses_SearchResponseId",
                         column: x => x.SearchResponseId,
@@ -99,20 +91,32 @@ namespace SearchEngines.Db.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "SearchSystems",
+                columns: new[] { "Id", "IsDeleted", "SystemName" },
+                values: new object[] { 1L, false, "yandex" });
+
+            migrationBuilder.InsertData(
+                table: "SearchSystems",
+                columns: new[] { "Id", "IsDeleted", "SystemName" },
+                values: new object[] { 2L, false, "google" });
+
+            migrationBuilder.InsertData(
+                table: "SearchSystems",
+                columns: new[] { "Id", "IsDeleted", "SystemName" },
+                values: new object[] { 3L, false, "bing" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_SearchResponses_SearchRequestId",
                 table: "SearchResponses",
-                column: "SearchRequestId");
+                column: "SearchRequestId",
+                unique: true,
+                filter: "[SearchRequestId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SearchResponses_SearchSystemId",
                 table: "SearchResponses",
                 column: "SearchSystemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SearchResults_SearchRequestId",
-                table: "SearchResults",
-                column: "SearchRequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SearchResults_SearchResponseId",

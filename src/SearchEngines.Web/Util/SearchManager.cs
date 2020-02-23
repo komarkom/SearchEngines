@@ -8,6 +8,10 @@ using SearchEngines.Web.Models;
 
 namespace SearchEngines.Web.Util
 {
+    /// <summary>
+    /// Implementation of ISearchManager
+    /// </summary>
+    ///<inheritdoc cref="ISearchManager"/>
     public class SearchManager: ISearchManager
     {
         private readonly SearchEngineServices _searchEngineServices;

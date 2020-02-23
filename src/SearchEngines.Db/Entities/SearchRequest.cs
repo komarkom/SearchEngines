@@ -13,11 +13,6 @@ namespace SearchEngines.Db.Entities
     ///<inheritdoc cref="OriginalKeyedRecord"/>
     public class SearchRequest : OriginalKeyedRecord, ICreated, IDeleted
     {
-        public SearchRequest()
-        {
-            SearchResults = new HashSet<SearchResult>();
-        }
-
         /// <summary>
         /// Search user text
         /// </summary>
@@ -29,6 +24,6 @@ namespace SearchEngines.Db.Entities
         /// <summary>
         /// Result for this search request
         /// </summary>
-        public virtual ICollection<SearchResult> SearchResults { get; set; }
+        public virtual SearchResponse SearchResponse { get; set; }
     }
 }
