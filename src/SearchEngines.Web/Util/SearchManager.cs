@@ -73,6 +73,7 @@ namespace SearchEngines.Web.Util
             if (res.HasError)
             {
                 result.IsOk = false;
+                result.ErrorMessage = res.Error;
                 result.Value = res;
                 return result;
             }

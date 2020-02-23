@@ -64,10 +64,6 @@ namespace SearchEngines.Web.Controllers
                 return View();
             }
 
-            // var results =
-            //     _context.SearchResults.Where(x => EF.Functions.Like(x.HeaderLinkText.ToUpper(), searchText.ToUpper()))
-            //         .Take(take ?? 10);
-
             var resultsFromDb =
                 _context.SearchResults.Where(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()))
                     .Take(take ?? 10);

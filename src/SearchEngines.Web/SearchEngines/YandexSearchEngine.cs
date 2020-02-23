@@ -28,15 +28,15 @@ namespace SearchEngines.Web.SearchEngines
 
         public SearchResponse Search(string searchText, CancellationTokenSource cts)
         {
-            var url = string.Format(
-                _yandexSearchOption.BaseUrl,
-                _yandexSearchOption.User,
-                _yandexSearchOption.Key,
-                searchText);
-
             HttpWebResponse response;
             try
             {
+                var url = string.Format(
+                    _yandexSearchOption.BaseUrl,
+                    _yandexSearchOption.User,
+                    _yandexSearchOption.Key,
+                    searchText);
+
                 response = SendRequest(url);
             }
             catch (Exception e)
@@ -48,7 +48,7 @@ namespace SearchEngines.Web.SearchEngines
 
             if (result.HasError == false)
             {
-                cts.Cancel();
+                cts?.Cancel();
             }
 
             result.SearchSystemId = SearchSystem.DefaultRecord.FirstOrDefault(x => x.SystemName.Equals("yandex"))?.Id;
