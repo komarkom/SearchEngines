@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
 using SearchEngines.Db.Entities;
@@ -11,6 +12,10 @@ namespace SearchEngines.Test
 {
     public class SearchManagerUnitTest
     {
+
+        private IConfigurationBuilder _builder = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
         [Test]
         public void GetSuccessResponse()
         {
@@ -18,7 +23,7 @@ namespace SearchEngines.Test
             searchEngineMock.Setup(x => x.Search(It.IsAny<string>(), It.IsAny<CancellationTokenSource>()))
                 .Returns((string searchText, CancellationTokenSource cts) => GetFakeSuccessResponse(searchText, cts));
 
-            var searchEngineService = new SearchEngineServices()
+            var searchEngineService = new SearchEngineServices(_builder.Build())
             {
                 SearchEngines = new List<ISearchEngine>()
                     {searchEngineMock.Object}
@@ -43,7 +48,7 @@ namespace SearchEngines.Test
             searchEngineMock.Setup(x => x.Search(It.IsAny<string>(), It.IsAny<CancellationTokenSource>()))
                 .Returns((string searchText, CancellationTokenSource cts) => GetFakeErrorResponse(searchText, cts));
 
-            var searchEngineService = new SearchEngineServices()
+            var searchEngineService = new SearchEngineServices(_builder.Build())
             {
                 SearchEngines = new List<ISearchEngine>()
                     {searchEngineMock.Object}
