@@ -1,0 +1,202 @@
+﻿{
+  "_type": "SearchResponse",
+  "queryContext": { "originalQuery": "че как" },
+  "webPages": {
+    "webSearchUrl": "https:\/\/www.bing.com\/search?q=%D1%87%D0%B5+%D0%BA%D0%B0%D0%BA",
+    "totalEstimatedMatches": 405000000,
+    "value": [
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.0",
+        "name": "Че Гевара, Эрнесто — Википедия",
+        "url": "https:\/\/ru.wikipedia.org\/wiki\/%D0%A7%D0%B5_%D0%93%D0%B5%D0%B2%D0%B0%D1%80%D0%B0,_%D0%AD%D1%80%D0%BD%D0%B5%D1%81%D1%82%D0%BE",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/ru.wikipedia.org\/wiki\/Че_Гевара,_Эрнесто",
+        "snippet": "Позже, тем же вечером 8 октября, несмотря на связанные руки, Че Гевара ударил боливийского офицера Эспиносу об стену, после того как тот, войдя в школу, пытался вырвать изо рта у курящего Че ...",
+        "dateLastCrawled": "2020-02-20T13:10:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.1",
+        "name": "Официальный сайт телеканала Че",
+        "url": "https:\/\/chetv.ru\/",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/chetv.ru",
+        "snippet": "Официальный сайт телеканала Че, новые программы, эксклюзивное видео",
+        "deepLinks": [
+          {
+            "name": "Решала",
+            "url": "https:\/\/chetv.ru\/show\/reshala\/"
+          },
+          {
+            "name": "Смотреть онлайн Че",
+            "url": "https:\/\/chetv.ru\/online\/"
+          },
+          {
+            "name": "Шоу",
+            "url": "https:\/\/chetv.ru\/show\/"
+          },
+          {
+            "name": "Опасные связи",
+            "url": "https:\/\/chetv.ru\/show\/opasnyie_svyazi_18\/"
+          },
+          {
+            "name": "Телепрограмма",
+            "url": "https:\/\/chetv.ru\/teleprogramma\/"
+          },
+          {
+            "name": "Остановите Витю",
+            "url": "https:\/\/chetv.ru\/show\/ostanovite_vityu\/"
+          }
+        ],
+        "dateLastCrawled": "2020-02-21T23:50:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.2",
+        "name": "Че (телеканал) — Википедия",
+        "url": "https:\/\/ru.wikipedia.org\/wiki\/%D0%A7%D0%B5_%28%D1%82%D0%B5%D0%BB%D0%B5%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%29",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/ru.wikipedia.org\/wiki\/Че_(телеканал)",
+        "snippet": "Как утверждает руководство телеканала, название «Че» было выбрано по ассоциации со словами, среди которых числится «Че Гевара», вследствие чего в октябре 2015 года Национальный ...",
+        "dateLastCrawled": "2020-02-20T09:42:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.3",
+        "name": "Смотреть онлайн Че - прямой эфир",
+        "url": "https:\/\/chetv.ru\/online\/",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/chetv.ru\/online",
+        "snippet": "Смотреть онлайн прямой эфир телеканала Че на официальном сайте.",
+        "dateLastCrawled": "2020-02-21T10:34:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.4",
+        "name": "Как правильно писать \"чо\" или \"чё\"?",
+        "url": "http:\/\/www.bolshoyvopros.ru\/questions\/1209510-kak-pravilno-pisat-cho-ili-chjo.html",
+        "isFamilyFriendly": true,
+        "displayUrl": "www.bolshoyvopros.ru\/questions\/1209510-kak-pravilno-pisat-cho-ili-chjo.html",
+        "snippet": "Есть вариант написания Че такой: Если же хочется писать именно Чё, то следует писать через ё, а не через О. Пишите так, как на нижеследующей картинке изображено. Хотя, в общем вы не ошибетесь, так",
+        "dateLastCrawled": "2020-02-19T10:32:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.5",
+        "name": "Че как - Перевод на английский - примеры русский | Reverso ...",
+        "url": "https:\/\/context.reverso.net\/%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4\/%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9-%D0%B0%D0%BD%D0%B3%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B9\/%D0%A7%D0%B5+%D0%BA%D0%B0%D0%BA",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/context.reverso.net\/перевод\/русский-английский\/Че+как",
+        "snippet": "Другой барельеф показывает Че как министра промышленности, осуществляющего свою обычную работу. Another section shows Guevara as Minister of Industry performing his usual voluntary work.",
+        "dateLastCrawled": "2020-02-13T18:31:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.6",
+        "name": "че | VK",
+        "url": "https:\/\/vk.com\/21jqofa",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/vk.com\/21jqofa",
+        "snippet": "Влад, Как Вы уже понимаете, если бы кофеин как-то стимулировал образование АТФ, то энергии в самом деле было у нас больше, но происходит не так.Кофеин имеет способность воздействовать на рецепторы клеток к аденозину ...",
+        "dateLastCrawled": "2020-02-21T01:51:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.7",
+        "name": "Ответы Mail.ru: Как правильно пишется: \"чо\" или \"чё ...",
+        "url": "https:\/\/otvet.mail.ru\/question\/85327000",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/otvet.mail.ru\/question\/85327000",
+        "snippet": "Не о том речь, господа! Некоторые писатели часто используют местные диалекты и пишут \"чо\", а другие \"че\". И как же \"правильнее\"? Если не знаете, то и не ерничайте!",
+        "dateLastCrawled": "2020-02-17T07:11:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.8",
+        "name": "Смотреть онлайн шоу Решала - все выпуски бесплатно на Че",
+        "url": "https:\/\/chetv.ru\/show\/reshala\/",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/chetv.ru\/show\/reshala",
+        "snippet": "Он легко восстанавливает справедливость и знает, как противостоять самым опасным аферистам. Смотри онлайн реалити-шоу «Решала» в хорошем качестве на телеканале «ЧЕ!».",
+        "dateLastCrawled": "2020-02-21T13:34:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      },
+      {
+        "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.9",
+        "name": "Программа передач телеканала Че на сегодня, завтра и неделю",
+        "url": "https:\/\/chetv.ru\/teleprogramma\/",
+        "isFamilyFriendly": true,
+        "displayUrl": "https:\/\/chetv.ru\/teleprogramma",
+        "snippet": "Программа передач телеканала Че с подробным описанием программ и возможностью просмотра повторов. Официальный сайт Че.",
+        "dateLastCrawled": "2020-02-21T02:37:00.0000000Z",
+        "language": "ru",
+        "isNavigational": false
+      }
+    ]
+  },
+  "rankingResponse": {
+    "mainline": {
+      "items": [
+        {
+          "answerType": "WebPages",
+          "resultIndex": 0,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.0" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 1,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.1" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 2,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.2" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 3,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.3" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 4,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.4" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 5,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.5" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 6,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.6" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 7,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.7" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 8,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.8" }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 9,
+          "value": { "id": "https:\/\/api.cognitive.microsoft.com\/api\/v7\/#WebPages.9" }
+        }
+      ]
+    }
+  }
+}

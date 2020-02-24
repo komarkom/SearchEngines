@@ -10,7 +10,7 @@ using SearchEngines.Web.Util;
 
 namespace SearchEngines.Test
 {
-    public class Tests
+    public class SearchManagerUnitTest
     {
         [Test]
         public void GetSuccessResponse()

@@ -15,7 +15,9 @@ namespace SearchEngines.Web.SearchEngines.Bing
     /// Implementation bing search engine
     /// </summary>
     ///<inheritdoc cref="ISearchEngine"/>
-    public class BingSearchEngine : ISearchEngine
+    ///<inheritdoc cref="IWebRequestSearchEngine"/>
+    ///<inheritdoc cref="IJsonResultWebSearchEngine"/>
+    public class BingSearchEngine : ISearchEngine, IWebRequestSearchEngine, IJsonResultWebSearchEngine
     {
         private readonly BingSearchOption _bingSearchOption;
 
@@ -33,9 +35,7 @@ namespace SearchEngines.Web.SearchEngines.Bing
             HttpWebResponse response;
             try
             {
-                var url = string.Format(
-                    _bingSearchOption.BaseUrl,
-                    searchText);
+                var url = GetFormattedSearchUrl(searchText);
 
                 response = await DoSearch(url);
             }
@@ -44,7 +44,18 @@ namespace SearchEngines.Web.SearchEngines.Bing
                 return new SearchResponse() {HasError = true, Error = e.ToString()};
             }
 
-            var result = ParseSearchResponse(response);
+            string responseBody;
+
+            try
+            {
+                responseBody = ReadResponseString(response);
+            }
+            catch (Exception e)
+            {
+                return new SearchResponse() {HasError = true, Error = $"Error to read response\n{e}"};
+            }
+
+            var result = ParseSearchResponse(responseBody);
 
             if (result.HasError == false)
             {
@@ -55,12 +66,15 @@ namespace SearchEngines.Web.SearchEngines.Bing
             return result;
         }
 
-        /// <summary>
-        /// Send search request and get response
-        /// </summary>
-        /// <param name="url">Formatted searching url</param>
-        /// <returns>Web response</returns>
-        private async Task<HttpWebResponse> DoSearch(string url)
+        public string GetFormattedSearchUrl(string searchText)
+        {
+            var url = string.Format(
+                _bingSearchOption.BaseUrl,
+                searchText);
+            return url;
+        }
+
+        public async Task<HttpWebResponse> DoSearch(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Headers["Ocp-Apim-Subscription-Key"] = _bingSearchOption.Key;
@@ -70,20 +84,16 @@ namespace SearchEngines.Web.SearchEngines.Bing
             return response;
         }
 
-        /// <summary>
-        /// Parsing web response with xml format
-        /// </summary>
-        /// <param name="response">Web response to parsing</param>
-        /// <returns>Search response</returns>
-        private SearchResponse ParseSearchResponse(HttpWebResponse response)
+        public string ReadResponseString(HttpWebResponse response)
+        {
+            using var reader = new StreamReader(response.GetResponseStream());
+            var responseBody = reader.ReadToEnd();
+            return responseBody;
+        }
+
+        public SearchResponse ParseSearchResponse(string responseBody)
         {
             var result = new SearchResponse();
-            string responseBody;
-
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                responseBody = reader.ReadToEnd();
-            }
 
             var bingResponse = JsonConvert.DeserializeObject<BingResponse>(responseBody);
 

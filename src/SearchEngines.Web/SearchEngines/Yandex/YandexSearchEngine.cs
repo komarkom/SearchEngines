@@ -14,7 +14,9 @@ namespace SearchEngines.Web.SearchEngines.Yandex
     /// Implementation yandex search engine
     /// </summary>
     ///<inheritdoc cref="ISearchEngine"/>
-    public class YandexSearchEngine : ISearchEngine
+    ///<inheritdoc cref="IWebRequestSearchEngine"/>
+    ///<inheritdoc cref="IXmlResultWebSearchEngine"/>
+    public class YandexSearchEngine : ISearchEngine, IWebRequestSearchEngine, IXmlResultWebSearchEngine
     {
         private readonly YandexSearchOption _yandexSearchOption;
 
@@ -32,11 +34,7 @@ namespace SearchEngines.Web.SearchEngines.Yandex
             HttpWebResponse response;
             try
             {
-                var url = string.Format(
-                    _yandexSearchOption.BaseUrl,
-                    _yandexSearchOption.User,
-                    _yandexSearchOption.Key,
-                    searchText);
+                var url = GetFormattedSearchUrl(searchText);
 
                 response = await DoSearch(url);
             }
@@ -45,7 +43,18 @@ namespace SearchEngines.Web.SearchEngines.Yandex
                 return new SearchResponse() {HasError = true, Error = e.ToString()};
             }
 
-            var result = ParseSearchResponse(response);
+            XDocument responseBody;
+
+            try
+            {
+                responseBody = ReadResponseXml(response);
+            }
+            catch (Exception e)
+            {
+                return new SearchResponse() { HasError = true, Error = $"Error to read xml response\n{e}" };
+            }
+
+            var result = ParseSearchResponse(responseBody);
 
             if (result.HasError == false)
             {
@@ -56,12 +65,17 @@ namespace SearchEngines.Web.SearchEngines.Yandex
             return result;
         }
 
-        /// <summary>
-        /// Send search request and get response
-        /// </summary>
-        /// <param name="url">Formatted searching url</param>
-        /// <returns>Web response</returns>
-        private async Task<HttpWebResponse> DoSearch(string url)
+        public string GetFormattedSearchUrl(string searchText)
+        {
+            var url = string.Format(
+                _yandexSearchOption.BaseUrl,
+                _yandexSearchOption.User,
+                _yandexSearchOption.Key,
+                searchText);
+            return url;
+        }
+
+        public async Task<HttpWebResponse> DoSearch(string url)
         {
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
             HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
@@ -69,17 +83,16 @@ namespace SearchEngines.Web.SearchEngines.Yandex
             return response;
         }
 
-        /// <summary>
-        /// Parsing web response with xml format
-        /// </summary>
-        /// <param name="response">Web response to parsing</param>
-        /// <returns>Search response</returns>
-        private SearchResponse ParseSearchResponse(HttpWebResponse response)
+        public XDocument ReadResponseXml(HttpWebResponse response)
+        {
+            XmlReader xmlReader = XmlReader.Create(response.GetResponseStream());
+            var xmlResponse = XDocument.Load(xmlReader);
+            return xmlResponse;
+        }
+
+        public SearchResponse ParseSearchResponse(XDocument xmlResponse)
         {
             var result = new SearchResponse();
-
-            XmlReader xmlReader = XmlReader.Create(response.GetResponseStream());
-            XDocument xmlResponse = XDocument.Load(xmlReader);
 
             result.Data = xmlResponse.ToString();
 

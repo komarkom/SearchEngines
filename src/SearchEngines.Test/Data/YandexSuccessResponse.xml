@@ -1,0 +1,274 @@
+﻿<yandexsearch version="1.0">
+  <request>
+    <query>привет</query>
+    <page>0</page>
+    <sortby order="descending" priority="no">rlv</sortby>
+    <maxpassages></maxpassages>
+    <groupings>
+      <groupby attr="" mode="flat" groups-on-page="10" docs-in-group="1" curcateg="-1" />
+    </groupings>
+  </request>
+  <response date="20200223T084016">
+    <reqid>1582447215773923-1632059399241660327052876-vla1-1092-XML</reqid>
+    <found priority="phrase">24964992</found>
+    <found priority="strict">24964992</found>
+    <found priority="all">24964992</found>
+    <found-human>25 mln. answers found</found-human>
+    <results>
+      <grouping attr="" mode="flat" groups-on-page="10" docs-in-group="1" curcateg="-1">
+        <found priority="phrase">12632</found>
+        <found priority="strict">12632</found>
+        <found priority="all">12632</found>
+        <found-docs priority="phrase">12632</found-docs>
+        <found-docs priority="strict">12632</found-docs>
+        <found-docs priority="all">12632</found-docs>
+        <found-docs-human>found 13 thsd. answers</found-docs-human>
+        <page first="1" last="10">0</page>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="ZCD375F258EAAB234">
+            <relevance />
+            <url>https://ru.wiktionary.org/wiki/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82</url>
+            <domain>ru.wiktionary.org</domain>
+            <title>
+              <hlword>привет</hlword> — Викисловарь
+            </title>
+            <headline>
+              <hlword>при</hlword>-<hlword>ве́т</hlword>. 1. обращённое к кому-либо выражение дружелюбия, расположения, добрых пожеланий. 2. разг. междомет. слово, произносимое при встрече (реже — при расставании) в знак доброго расположения или вежливости.
+            </headline>
+            <modtime>20170416T220021</modtime>
+            <size>2007</size>
+            <charset>utf-8</charset>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="ZDF3B847410445983">
+            <relevance />
+            <url>https://yandex.ru/collections/user/artiukhova-v/privet-privet/</url>
+            <domain>yandex.ru</domain>
+            <title>
+              88 карточек в коллекции «<hlword>привет</hlword> <hlword>привет</hlword>» пользователя...
+            </title>
+            <modtime>20170829T003000</modtime>
+            <size>318</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                <hlword>привет</hlword> <hlword>привет</hlword>. Подписаться140. Поделиться.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z453CEBF512DDE443">
+            <relevance />
+            <url>https://otkritkiok.ru/ejednevnie/privet</url>
+            <domain>otkritkiok.ru</domain>
+            <title>
+              Открытки «<hlword>Привет</hlword>», Картинки «<hlword>Привет</hlword>» - Скачать бесплатно на...
+            </title>
+            <modtime>20160419T142951</modtime>
+            <size>796</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                Смешные и прикольные картинки с <hlword>приветом</hlword> - бесплатно на OtkritkiOk.ru. Красивые открытки <hlword>привет</hlword>, с пожеланиями хорошего дня любимым и друзьям.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z9C657352620E0FE2">
+            <relevance />
+            <url>https://kartaslov.ru/%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-%D1%81%D0%BB%D0%BE%D0%B2%D0%B0/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82</url>
+            <domain>kartaslov.ru</domain>
+            <title>
+              Значение слова <hlword>ПРИВЕТ</hlword>. Что такое <hlword>ПРИВЕТ</hlword>?
+            </title>
+            <modtime>20170510T025059</modtime>
+            <size>1444</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                <hlword>ПРИВЕ́Т</hlword>, -а, м. 1. Выражение дружеского расположения, дружеских чувств, доброжелательства. Пошли <hlword>приветы</hlword>, поздравленья; Татьяна всех благодарит. Пушкин, Евгений Онегин.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z2BC0EEDD2A334C6E">
+            <relevance />
+            <url>https://yandex.ru/collections/user/irinavolkova781/otkrytki-ezhednevnye-privet/</url>
+            <domain>yandex.ru</domain>
+            <title>
+              43 карточки в коллекции «Открытки Ежедневные <hlword>Привет</hlword>»...
+            </title>
+            <modtime>20190213T030000</modtime>
+            <size>365</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                Открытки Ежедневные <hlword>Привет</hlword>. Открытки Ежедневные <hlword>Привет</hlword>. vipotkritki.ru. Подписаться187. Поделиться.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="ZC93A44A322D800E2">
+            <relevance />
+            <url>https://bonnycards.ru/menu/privet.php</url>
+            <domain>bonnycards.ru</domain>
+            <title>
+              Открытки и картинки <hlword>привет</hlword>, скачать бесплатно, отправить.
+            </title>
+            <modtime>20180602T125404</modtime>
+            <size>1433</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                На этой страничке собраны красивые и яркие открытки "<hlword>Привет</hlword>". Выбирайте картинки и радуйте ими близких и друзей.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z88AD9B3774C89F80">
+            <relevance />
+            <url>https://dic.academic.ru/dic.nsf/dmitriev/4121/%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82</url>
+            <domain>dic.academic.ru</domain>
+            <title>
+              <hlword>привет</hlword> — Толковый словарь русского языка Дмитриева
+            </title>
+            <headline>
+              <hlword>Приве́т</hlword> сущ., м., употр. часто Морфология: (нет) чего? <hlword>приве́та</hlword>, чему? <hlword>приве́ту</hlword>, (вижу) что? <hlword>приве́т</hlword>, чем? <hlword>приве́том</hlword>, о чём? о <hlword>приве́те</hlword>; мн. что? <hlword>приве́ты</hlword>, (нет) чего? <hlword>приве́тов</hlword>, чему? <hlword>приве́там</hlword>, (вижу) что? <hlword>приве́ты</hlword>, чем? <hlword>приве́тами</hlword>...
+            </headline>
+            <modtime>20100601T070324</modtime>
+            <size>1679</size>
+            <charset>utf-8</charset>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z5830CA694A74DCF8">
+            <relevance />
+            <url>https://kartinkigif.ru/photo/privet/30</url>
+            <domain>kartinkigif.ru</domain>
+            <title>
+              Картинки <hlword>привет</hlword> скачать бесплатно
+            </title>
+            <modtime>20121111T132717</modtime>
+            <size>988</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                Красивые анимационные гиф картинки и открытки с надписями <hlword>Привет</hlword>. Прикольную картинку, <hlword>Привет</hlword> как дела, можно скачать и отправить бесплатно.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="ZB447F51D4EE4940F">
+            <relevance />
+            <url>https://3d-galleru.ru/archive/cat/prosto-privet-64/</url>
+            <domain>3d-galleru.ru</domain>
+            <title>
+              Открытки со словами <hlword>привет</hlword> | Галерея поздравлений
+            </title>
+            <modtime>20160528T001543</modtime>
+            <size>1302</size>
+            <charset>utf-8</charset>
+            <passages>
+              <passage>
+                Открытки из категории просто <hlword>привет</hlword> предназначена для тех кто просто хочет поздороваться.
+              </passage>
+            </passages>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+        <group>
+          <doccount>1</doccount>
+          <relevance />
+          <doc id="Z17BB79D6F9F2D2F8">
+            <relevance />
+            <url>https://zen.yandex.ru/media/id/5a58c45d168a91fd9b027f16/5c12bab69d5b1c00aa845105</url>
+            <domain>zen.yandex.ru</domain>
+            <title>
+              «Передавай <hlword>привет</hlword>»: что на самом деле означает это русское...
+            </title>
+            <headline>
+              «Передавая <hlword>привет</hlword>», люди совершают два ритуала. Во-первых, так они подчеркивают факт знакомства с «получателем». Во-вторых, напоминают ему о себе.
+            </headline>
+            <modtime>20181213T231356</modtime>
+            <size>598</size>
+            <charset>utf-8</charset>
+            <properties>
+              <_PassagesType>0</_PassagesType>
+              <lang>ru</lang>
+            </properties>
+            <mime-type>text/html</mime-type>
+          </doc>
+        </group>
+      </grouping>
+    </results>
+  </response>
+</yandexsearch>

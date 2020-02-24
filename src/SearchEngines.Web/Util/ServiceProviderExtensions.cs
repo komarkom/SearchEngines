@@ -34,8 +34,8 @@ namespace SearchEngines.Web.Util
                 SearchEngines = new List<ISearchEngine>()
                 {
                     new GoogleSearchEngine(googleSearchOption),
-                    new YandexSearchEngine(yandexSearchOption),
-                    new BingSearchEngine(bingSearchOption)
+                    // new YandexSearchEngine(yandexSearchOption),
+                    // new BingSearchEngine(bingSearchOption)
                 }
             });
         }
