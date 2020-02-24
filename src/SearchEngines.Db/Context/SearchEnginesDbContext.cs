@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SearchEngines.Db.Entities;
 using SearchEngines.Db.Entities.Base;
@@ -35,6 +37,22 @@ namespace SearchEngines.Db.Context
 
         public override int SaveChanges()
         {
+            EntityModifyChanges();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            EntityModifyChanges();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Detect changes, override deleted state, set CreatedOn date
+        /// </summary>
+        private void EntityModifyChanges()
+        {
             ChangeTracker.DetectChanges();
 
             var markedAsDeleted = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted);
@@ -57,8 +75,6 @@ namespace SearchEngines.Db.Context
                     createdEntity.CreatedOn = DateTime.Now;
                 }
             }
-
-            return base.SaveChanges();
         }
     }
 }
