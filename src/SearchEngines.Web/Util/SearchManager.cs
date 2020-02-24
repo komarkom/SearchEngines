@@ -17,9 +17,9 @@ namespace SearchEngines.Web.Util
         /// <summary>
         /// Service with collection of search engines
         /// </summary>
-        private readonly SearchEngineServices _searchEngineServices;
+        private readonly ISearchEngineServices _searchEngineServices;
 
-        public SearchManager(SearchEngineServices searchEngineServices)
+        public SearchManager(ISearchEngineServices searchEngineServices)
         {
             _searchEngineServices = searchEngineServices;
         }

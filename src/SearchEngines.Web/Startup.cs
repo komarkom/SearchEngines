@@ -27,8 +27,8 @@ namespace SearchEngines.Web
             services.AddDbContext<SearchEnginesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSearchEngineServices(Configuration);
-            services.AddScoped<ISearchManager, SearchManager>();
+            services.AddTransient<ISearchManager, SearchManager>();
+            services.AddTransient<ISearchEngineServices, SearchEngineServices>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
