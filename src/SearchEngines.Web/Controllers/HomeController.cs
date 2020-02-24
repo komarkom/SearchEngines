@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SearchEngines.Db.Context;
 using SearchEngines.Db.Entities;
@@ -36,8 +37,8 @@ namespace SearchEngines.Web.Controllers
             }
 
             var request = new SearchRequest() {SearchText = searchText};
-            _context.SearchRequests.Add(request);
-            _context.SaveChanges();
+            await _context.SearchRequests.AddAsync(request);
+            await _context.SaveChangesAsync();
 
             var res = _searchManager.Search(searchText);
             if (!res.IsOk || res.Value == null)
@@ -51,31 +52,31 @@ namespace SearchEngines.Web.Controllers
             }
 
             res.Value.SearchRequestId = request.Id;
-            _context.SearchResponses.Add(res.Value);
-            _context.SaveChanges();
+            await _context.SearchResponses.AddAsync(res.Value);
+            await _context.SaveChangesAsync();
 
             var resultDto = _mapper.Map<SearchResponseDto>(res.Value);
-            var searchSystem = _context.SearchSystems.Find(res.Value?.SearchSystemId);
+            var searchSystem = await _context.SearchSystems.FindAsync(res.Value?.SearchSystemId);
             resultDto.SearchSystem = searchSystem?.SystemName ?? resultDto.SearchSystem;
 
             return View("Index", resultDto);
         }
 
-        public IActionResult OfflineSearch(string searchText, int? take = 10)
+        public async Task<IActionResult> OfflineSearch(string searchText, int? take = 10)
         {
             if (string.IsNullOrWhiteSpace(searchText))
             {
                 return View();
             }
 
-            var count = _context.SearchResults.Count(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()));
+            var count = await _context.SearchResults.CountAsync(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()));
             if (count > 10)
             {
                 ViewBag.InfoMessage = "There are more 10 found result, please specify your request";
             }
-            var resultsFromDb =
+            var resultsFromDb = await 
                 _context.SearchResults.Where(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()))
-                    .Take(take ?? 10);
+                    .Take(take ?? 10).ToListAsync();
 
             var results = _mapper.Map<ICollection<SearchResultDto>>(resultsFromDb);
             return View(results);
