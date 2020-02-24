@@ -15,6 +15,15 @@
 <div class="container">
     @if (Model != null)
     {
+        if (!string.IsNullOrWhiteSpace(ViewBag.InfoMessage))
+        {
+            <div class="form-group">
+                <div class="alert alert-info">
+                    @ViewBag.InfoMessage
+                </div>
+            </div>
+        }
+
         foreach (var result in Model)
         {
             <div class="card">
@@ -30,7 +39,7 @@
         }
     }
 
-    @if(Model == null || Model.Count == 0)
+    @if (Model == null || Model.Count == 0)
     {
         <div class="alert alert-warning">There are no results</div>
     }

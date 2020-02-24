@@ -68,6 +68,11 @@ namespace SearchEngines.Web.Controllers
                 return View();
             }
 
+            var count = _context.SearchResults.Count(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()));
+            if (count > 10)
+            {
+                ViewBag.InfoMessage = "There are more 10 found result, please specify your request";
+            }
             var resultsFromDb =
                 _context.SearchResults.Where(x => x.HeaderLinkText.ToUpper().Contains(searchText.ToUpper()))
                     .Take(take ?? 10);

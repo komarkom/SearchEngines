@@ -20,8 +20,15 @@
         <div class="alert alert-warning">@Model.Error</div>
     }
     
-    <div>@Model.SearchSystem</div>
-
+    @if (!string.IsNullOrWhiteSpace(Model.SearchSystem))
+    {
+        <div class="form-group">
+            <div class="alert alert-info">
+                Result from Search engine: @Model.SearchSystem.ToUpper()
+            </div>
+        </div>
+    }
+    
     @if (Model.SearchResults != null)
     {
         foreach (var result in Model.SearchResults)
