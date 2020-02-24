@@ -1,0 +1,15 @@
+﻿<yandexsearch version="1.0">
+  <request>
+    <query>sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfwerwerwerwerwerwerwer3452523432432432432423rewrewfewfewfwefw</query>
+    <page>0</page>
+    <sortby order="descending" priority="no">rlv</sortby>
+    <maxpassages></maxpassages>
+    <groupings>
+      <groupby attr="" mode="flat" groups-on-page="10" docs-in-group="1" curcateg="-1" />
+    </groupings>
+  </request>
+  <response date="20200224T101148">
+    <error code="15">Sorry, there are no results for this search</error>
+    <reqid>1582539108250500-547523374531105957600417-vla1-2651-XML</reqid>
+  </response>
+</yandexsearch>
