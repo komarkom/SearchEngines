@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using SearchEngines.Db.Entities;
 
 namespace SearchEngines.Web.SearchEngines.Base
@@ -14,6 +15,6 @@ namespace SearchEngines.Web.SearchEngines.Base
         /// <param name="searchText">User search text</param>
         /// <param name="cts">Cancellation token for cancel request</param>
         /// <returns>Search response</returns>
-        public SearchResponse Search(string searchText, CancellationTokenSource cts);
+        public Task<SearchResponse> Search(string searchText, CancellationTokenSource cts);
     }
 }

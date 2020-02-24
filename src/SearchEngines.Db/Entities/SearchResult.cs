@@ -32,6 +32,7 @@ namespace SearchEngines.Db.Entities
         public string PreviewData { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
         public bool IsDeleted { get; set; }
 
         /// <summary>

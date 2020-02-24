@@ -1,4 +1,5 @@
 ﻿using SearchEngines.Db.Entities;
+using SearchEngines.Web.Util.Model;
 
 namespace SearchEngines.Web.Util
 {

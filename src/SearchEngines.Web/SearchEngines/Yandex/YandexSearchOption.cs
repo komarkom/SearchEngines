@@ -1,4 +1,4 @@
-﻿namespace SearchEngines.Web.SearchEngines
+﻿namespace SearchEngines.Web.SearchEngines.Yandex
 {
     /// <summary>
     /// Yandex search settings

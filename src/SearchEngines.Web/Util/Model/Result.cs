@@ -1,4 +1,4 @@
-﻿namespace SearchEngines.Web.Util
+﻿namespace SearchEngines.Web.Util.Model
 {
     /// <summary>
     /// Result of any type

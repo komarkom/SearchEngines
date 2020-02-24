@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SearchEngines.Db.Entities;
-using SearchEngines.Web.Models;
+using SearchEngines.Web.Util.Model;
 
 namespace SearchEngines.Web.Util
 {
@@ -14,6 +14,9 @@ namespace SearchEngines.Web.Util
     ///<inheritdoc cref="ISearchManager"/>
     public class SearchManager: ISearchManager
     {
+        /// <summary>
+        /// Service with collection of search engines
+        /// </summary>
         private readonly SearchEngineServices _searchEngineServices;
 
         public SearchManager(SearchEngineServices searchEngineServices)
@@ -29,7 +32,7 @@ namespace SearchEngines.Web.Util
             var tasks = new List<Task<SearchResponse>>();
             foreach (var searchEngine in _searchEngineServices.SearchEngines)
             {
-                tasks.Add(new Task<SearchResponse>(() => searchEngine.Search(searchText, cts)));
+                tasks.Add(new Task<SearchResponse>(() => searchEngine.Search(searchText, cts).GetAwaiter().GetResult()));
             }
 
             foreach (var task in tasks)

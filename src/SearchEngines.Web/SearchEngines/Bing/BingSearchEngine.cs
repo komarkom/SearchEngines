@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,19 +7,28 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SearchEngines.Db.Entities;
 using SearchEngines.Web.SearchEngines.Base;
+using SearchEngines.Web.SearchEngines.Bing.Models;
 
-namespace SearchEngines.Web.SearchEngines
+namespace SearchEngines.Web.SearchEngines.Bing
 {
+    /// <summary>
+    /// Implementation bing search engine
+    /// </summary>
+    ///<inheritdoc cref="ISearchEngine"/>
     public class BingSearchEngine : ISearchEngine
     {
         private readonly BingSearchOption _bingSearchOption;
 
+        /// <summary>
+        /// New instance of BingSearchOption
+        /// </summary>
+        /// <param name="bingSearchOption">Setting</param>
         public BingSearchEngine(BingSearchOption bingSearchOption)
         {
             _bingSearchOption = bingSearchOption;
         }
 
-        public SearchResponse Search(string searchText, CancellationTokenSource cts)
+        public async Task<SearchResponse> Search(string searchText, CancellationTokenSource cts)
         {
             HttpWebResponse response;
             try
@@ -29,7 +37,7 @@ namespace SearchEngines.Web.SearchEngines
                     _bingSearchOption.BaseUrl,
                     searchText);
 
-                response = SendRequest(url);
+                response = await DoSearch(url);
             }
             catch (Exception e)
             {
@@ -48,16 +56,16 @@ namespace SearchEngines.Web.SearchEngines
         }
 
         /// <summary>
-        /// Send search request
+        /// Send search request and get response
         /// </summary>
         /// <param name="url">Formatted searching url</param>
         /// <returns>Web response</returns>
-        private HttpWebResponse SendRequest(string url)
+        private async Task<HttpWebResponse> DoSearch(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Headers["Ocp-Apim-Subscription-Key"] = _bingSearchOption.Key;
 
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
 
             return response;
         }
@@ -70,7 +78,6 @@ namespace SearchEngines.Web.SearchEngines
         private SearchResponse ParseSearchResponse(HttpWebResponse response)
         {
             var result = new SearchResponse();
-            BingResponse bingResponse;
             string responseBody;
 
             using (var reader = new StreamReader(response.GetResponseStream()))
@@ -78,7 +85,7 @@ namespace SearchEngines.Web.SearchEngines
                 responseBody = reader.ReadToEnd();
             }
 
-            bingResponse = JsonConvert.DeserializeObject<BingResponse>(responseBody);
+            var bingResponse = JsonConvert.DeserializeObject<BingResponse>(responseBody);
 
             result.Data = responseBody;
             if (bingResponse?.WebPages?.Value == null)
@@ -100,22 +107,5 @@ namespace SearchEngines.Web.SearchEngines
 
             return result;
         }
-    }
-
-    public class BingResponse
-    {
-        public WebPages WebPages { get; set; }
-    }
-
-    public class Value
-    {
-        public string Name { get; set; }
-        public string Url { get; set; }
-        public string Snippet { get; set; }
-    }
-
-    public class WebPages
-    {
-        public List<Value> Value { get; set; }
     }
 }

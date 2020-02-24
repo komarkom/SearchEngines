@@ -58,6 +58,7 @@ namespace SearchEngines.Db.Entities
         public virtual ICollection<SearchResult> SearchResults { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -8,19 +7,28 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SearchEngines.Db.Entities;
 using SearchEngines.Web.SearchEngines.Base;
+using SearchEngines.Web.SearchEngines.Google.Model;
 
-namespace SearchEngines.Web.SearchEngines
+namespace SearchEngines.Web.SearchEngines.Google
 {
+    /// <summary>
+    /// Implementation google search engine
+    /// </summary>
+    ///<inheritdoc cref="ISearchEngine"/>
     public class GoogleSearchEngine : ISearchEngine
     {
         private readonly GoogleSearchOption _googleSearchOption;
 
+        /// <summary>
+        /// New instance of GoogleSearchEngine
+        /// </summary>
+        /// <param name="googleSearchOption">Setting</param>
         public GoogleSearchEngine(GoogleSearchOption googleSearchOption)
         {
             _googleSearchOption = googleSearchOption;
         }
 
-        public SearchResponse Search(string searchText, CancellationTokenSource cts)
+        public async Task<SearchResponse> Search(string searchText, CancellationTokenSource cts)
         {
             HttpWebResponse response;
             try
@@ -31,7 +39,7 @@ namespace SearchEngines.Web.SearchEngines
                     _googleSearchOption.Key,
                     searchText);
 
-                response = SendRequest(url);
+                response = await DoSearch(url);
             }
             catch (Exception e)
             {
@@ -50,14 +58,14 @@ namespace SearchEngines.Web.SearchEngines
         }
 
         /// <summary>
-        /// Send search request
+        /// Send search request and get response
         /// </summary>
         /// <param name="url">Formatted searching url</param>
         /// <returns>Web response</returns>
-        private HttpWebResponse SendRequest(string url)
+        private async Task<HttpWebResponse> DoSearch(string url)
         {
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
 
             return response;
         }
@@ -70,7 +78,6 @@ namespace SearchEngines.Web.SearchEngines
         private SearchResponse ParseSearchResponse(HttpWebResponse response)
         {
             var result = new SearchResponse();
-            GoogleResponse googleResponse;
             string responseBody;
 
             using (var reader = new StreamReader(response.GetResponseStream()))
@@ -78,7 +85,7 @@ namespace SearchEngines.Web.SearchEngines
                 responseBody = reader.ReadToEnd();
             }
             
-            googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(responseBody);
+            var googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(responseBody);
 
             if (googleResponse == null)
             {
@@ -109,36 +116,4 @@ namespace SearchEngines.Web.SearchEngines
             return result;
         }
     }
-
-    public class GoogleResponse
-    {
-        public SearchInformation SearchInformation { get; set; }
-        public List<Item> Items { get; set; }
-    }
-
-    public class Item
-    {
-        public string Title { get; set; }
-        public string Link { get; set; }
-        public string Snippet { get; set; }
-    }
-
-    public class Error
-    {
-        public int Code { get; set; }
-        public string Message { get; set; }
-        public string Status { get; set; }
-    }
-
-    public class GoogleErrorResponse
-    {
-        public Error Error { get; set; }
-    }
-
-    public class SearchInformation
-    {
-        public double SearchTime { get; set; }
-        public string TotalResults { get; set; }
-    }
-
 }

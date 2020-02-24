@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using SearchEngines.Db.Entities;
 using SearchEngines.Web.SearchEngines.Base;
 
-namespace SearchEngines.Web.SearchEngines
+namespace SearchEngines.Web.SearchEngines.Yandex
 {
     /// <summary>
     /// Implementation yandex search engine
@@ -26,7 +27,7 @@ namespace SearchEngines.Web.SearchEngines
             _yandexSearchOption = yandexSearchOption;
         }
 
-        public SearchResponse Search(string searchText, CancellationTokenSource cts)
+        public async Task<SearchResponse> Search(string searchText, CancellationTokenSource cts)
         {
             HttpWebResponse response;
             try
@@ -37,7 +38,7 @@ namespace SearchEngines.Web.SearchEngines
                     _yandexSearchOption.Key,
                     searchText);
 
-                response = SendRequest(url);
+                response = await DoSearch(url);
             }
             catch (Exception e)
             {
@@ -56,14 +57,14 @@ namespace SearchEngines.Web.SearchEngines
         }
 
         /// <summary>
-        /// Send search request
+        /// Send search request and get response
         /// </summary>
         /// <param name="url">Formatted searching url</param>
         /// <returns>Web response</returns>
-        private HttpWebResponse SendRequest(string url)
+        private async Task<HttpWebResponse> DoSearch(string url)
         {
             HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
-            HttpWebResponse response = (HttpWebResponse) request.GetResponse();
+            HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync();
 
             return response;
         }

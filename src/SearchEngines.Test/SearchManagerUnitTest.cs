@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SearchEngines.Db.Entities;
@@ -31,9 +32,9 @@ namespace SearchEngines.Test
             Assert.True(result.IsOk, "Result not ok, when expect ok");
         }
 
-        private SearchResponse GetFakeSuccessResponse(string searchText, CancellationTokenSource cts)
+        private Task<SearchResponse> GetFakeSuccessResponse(string searchText, CancellationTokenSource cts)
         {
-            return new SearchResponse() { HasError = false };
+            return Task.FromResult(new SearchResponse() {HasError = false});
         }
 
         [Test]
@@ -56,9 +57,9 @@ namespace SearchEngines.Test
             Assert.True(!result.IsOk, "Result not ok, when expect ok");
         }
 
-        private SearchResponse GetFakeErrorResponse(string searchText, CancellationTokenSource cts)
+        private Task<SearchResponse> GetFakeErrorResponse(string searchText, CancellationTokenSource cts)
         {
-            return new SearchResponse() { HasError = true, Error = "Fake error"};
+            return Task.FromResult(new SearchResponse() { HasError = true, Error = "Fake error" });
         }
     }
 }
