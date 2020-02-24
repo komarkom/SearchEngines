@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using SearchEngines.Db.Entities;
-using SearchEngines.Web.SearchEngines;
 using SearchEngines.Web.SearchEngines.Base;
 using SearchEngines.Web.Util;
 

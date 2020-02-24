@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using SearchEngines.Db.Entities.Base;
 
 namespace SearchEngines.Db.Entities
